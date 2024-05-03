@@ -21,9 +21,13 @@
                 &:hover,&.active {
                     border: 1.5px solid theme('colors.border2');
                     box-shadow: theme('colors.shadow2');
-                    
+
                 }
             }
         }
        } 
+
+
 }
+
+/* 1:02:07 */
