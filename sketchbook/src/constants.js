@@ -8,6 +8,7 @@ const COLORS = {
     WHITE: 'white'
 }
 
+//menu items for menu bar 
 const MENU_ITEMS = {
     PENCIL: 'PENCIL',
     ERASER: 'ERASER',
