@@ -7,6 +7,12 @@ const actionMenuItem = useSelector((state) => state.menu.activeMenuItem)
 const {color,size}= useSelector((state) => state.toolbox[actionMenuItem])
 
 
+//add and download feature
+
+
+
+
+//mounting part
 useEffect(()=>{
     if(!canvasRef.current) return
     const canvas= canvasRef.current;
