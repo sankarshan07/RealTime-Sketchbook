@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useLayoutEffect, useRef } from "react"
 import { useSelector,useDispatch } from "react-redux"
 
 const Board = () => {
@@ -19,6 +19,7 @@ useEffect (() => {
         context.strokeStyle = color
         context.lineWidth = size
     }
+    // console.log();
    
 
     changeConfig()
@@ -27,24 +28,34 @@ useEffect (() => {
 
 
 
-//mounting part
-useEffect(()=>{
+
+//this runs before useeffect()  and doesnt ovelap on the useeffect
+useLayoutEffect(()=>{   
     if(!canvasRef.current) return
     const canvas= canvasRef.current;
     const context =canvas.getContext('2d');
-    //when mounting
+    
     canvas.width =window.innerWidth;
     canvas.height =window.innerHeight;
      //canvas add
+
+     const beginPath = (x,y) => {
+        context.beginPath()
+        context.moveTo(x,y)
+     }
+
+     const  drawLine = (x,y) => {
+        context.lineTo(x,y) 
+        context.stroke()
+     }
      const handleMouseDown = (e) => {
         shouldDraw.current = true
-       context.beginPath()
-       context.moveTo(e.clientX, e.clientY)
+       beginPath(e.clientX, e.clientY)
     }
     const handleMouseMove = (e) => {
         if (!shouldDraw.current) return
-        context.lineTo(e.clientX, e.clientY) 
-        context.stroke()
+        drawLine(e.clientX, e.clientY) 
+        
     }
     const handleMouseUp = (e) => {
          shouldDraw.current = false
