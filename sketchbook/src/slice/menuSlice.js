@@ -9,12 +9,12 @@ export const menuSlice = createSlice({
     name: 'menu',
     initialState,
     reducers: {
-        menuItemClick: (state,action )=> {
-            state.activeMenuItem= action.payload
+        menuItemClick: (state,action ) => {
+            state.activeMenuItem = action.payload
 
         },
         actionItemCLick :(state,action) => {
-            state.activeMenuItem= action.payload   
+            state.actionMenuItem = action.payload   
         }
     }
 })

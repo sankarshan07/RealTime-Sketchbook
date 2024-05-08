@@ -1,11 +1,34 @@
 import { useEffect, useLayoutEffect, useRef } from "react"
 import { useSelector,useDispatch } from "react-redux"
+import { menuItemClick,actionItemCLick } from "@/slice/menuSlice"
+import { MENU_ITEMS } from "@/constants"
 
 const Board = () => {
+    const dispatch = useDispatch()
 const canvasRef =useRef(null)
 const shouldDraw =useRef(false)
-const actionMenuItem = useSelector((state) => state.menu.activeMenuItem)
-const {color,size}= useSelector((state) => state.toolbox[actionMenuItem])
+const {activeMenuItem,actionMenuItem} = useSelector((state) => state.menu)
+const {color,size}= useSelector((state) => state.toolbox[activeMenuItem])
+
+useEffect(() => {
+    if(!canvasRef.current) return
+    const canvas =canvasRef.current
+    const context =canvas.getContext('2d')
+
+    if(actionMenuItem === MENU_ITEMS.DOWNLOAD){
+        const URL = canvas.toDataURL()
+        const anchor = document.createElement('a')
+        anchor.href=URL
+        anchor.download="paintboard.jpg"
+        anchor.click()
+        console.log(URL);  //displays url in console
+        
+
+    }
+    dispatch(actionItemCLick(null)) // it retriggers the useEffect() and makes to download again and again
+    console.log("actionMenuItem",actionMenuItem); //displays- actionMenuItem DOWNLOAD
+
+},[actionMenuItem,dispatch])
 
 
 //add and download feature
@@ -78,7 +101,7 @@ useLayoutEffect(()=>{
 
 
 return (
-<canvas ref={canvasRef}>
+<canvas style={{background: "white"}} ref={canvasRef}>
 
 </canvas>
 )
